@@ -350,14 +350,13 @@ testing$Sex &lt;- factor(testing$Sex)
 # since PassengerId cannot be a factor in survival, we will drop that column
 # for easier analysis
 
-testing$PassengerId &lt;- NULL
-
 pred_final &lt;- predict(logit4, testing)
 pred_final[pred_final &gt; 0.5 ] &lt;- 1
 pred_final[pred_final &lt; 0.5 | is.na(pred_final) ] &lt;- 0
 
-#submission_df &lt;- data.frame(PassengerId = testing)
-#as.numeric(pred_final)</code></pre>
+submission_df &lt;- data.frame(PassengerId = testing$PassengerId, Survived = as.numeric(pred_final))
+
+write.csv(submission_df, file = 'submission.csv', row.names = FALSE)</code></pre>
 </div>
 
 
