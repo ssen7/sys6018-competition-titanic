@@ -64,7 +64,7 @@ summary(logit2)
 ## Predicting using the above model on the validation set.
 
 ```{r}
-pred <- predict(logit2, modeltestset)
+pred <- predict(logit2, modeltestset, type = 'response')
 pred[pred > 0.5 ] <- 1
 pred[pred < 0.5 | is.na(pred) ] <- 0
 pred <- as.factor(pred)
@@ -88,7 +88,7 @@ summary(logit4)
 ## So SibSp seems significant here. We will test this model's accuracy.
 
 ```{r}
-pred2 <- predict(logit4, modeltestset)
+pred2 <- predict(logit4, modeltestset, type='response')
 pred2[pred2 > 0.5 ] <- 1
 pred2[pred2 < 0.5 | is.na(pred2) ] <- 0
 pred2 <- as.factor(pred2)
@@ -108,7 +108,7 @@ testing$Sex <- factor(testing$Sex)
 # since PassengerId cannot be a factor in survival, we will drop that column
 # for easier analysis
 
-pred_final <- predict(logit4, testing)
+pred_final <- predict(logit4, testing, type='response')
 pred_final[pred_final > 0.5 ] <- 1
 pred_final[pred_final < 0.5 | is.na(pred_final) ] <- 0
 
