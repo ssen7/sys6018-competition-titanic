@@ -222,13 +222,13 @@ summary(logit2)</code></pre>
 </div>
 <div id="predicting-using-the-above-model-on-the-validation-set." class="section level2">
 <h2>Predicting using the above model on the validation set.</h2>
-<pre class="r"><code>pred &lt;- predict(logit2, modeltestset)
+<pre class="r"><code>pred &lt;- predict(logit2, modeltestset, type = 'response')
 pred[pred &gt; 0.5 ] &lt;- 1
 pred[pred &lt; 0.5 | is.na(pred) ] &lt;- 0
 pred &lt;- as.factor(pred)
 confusionMatrix(pred,modeltestset$Survived)$overall[1]</code></pre>
 <pre><code>##  Accuracy 
-## 0.8079096</code></pre>
+## 0.8248588</code></pre>
 </div>
 <div id="this-accuracy-seems-good-enough-for-a-logistic-regression-model." class="section level2">
 <h2>This accuracy seems good enough for a logistic regression model.</h2>
@@ -312,13 +312,13 @@ summary(logit4)</code></pre>
 </div>
 <div id="so-sibsp-seems-significant-here.-we-will-test-this-models-accuracy." class="section level2">
 <h2>So SibSp seems significant here. We will test this model’s accuracy.</h2>
-<pre class="r"><code>pred2 &lt;- predict(logit4, modeltestset)
+<pre class="r"><code>pred2 &lt;- predict(logit4, modeltestset, type='response')
 pred2[pred2 &gt; 0.5 ] &lt;- 1
 pred2[pred2 &lt; 0.5 | is.na(pred2) ] &lt;- 0
 pred2 &lt;- as.factor(pred2)
 confusionMatrix(pred2,modeltestset$Survived)$overall[1]</code></pre>
 <pre><code>##  Accuracy 
-## 0.8248588</code></pre>
+## 0.8474576</code></pre>
 </div>
 <div id="the-accuracy-actually-increased." class="section level2">
 <h2>The accuracy actually increased.</h2>
@@ -350,7 +350,7 @@ testing$Sex &lt;- factor(testing$Sex)
 # since PassengerId cannot be a factor in survival, we will drop that column
 # for easier analysis
 
-pred_final &lt;- predict(logit4, testing)
+pred_final &lt;- predict(logit4, testing, type='response')
 pred_final[pred_final &gt; 0.5 ] &lt;- 1
 pred_final[pred_final &lt; 0.5 | is.na(pred_final) ] &lt;- 0
 
